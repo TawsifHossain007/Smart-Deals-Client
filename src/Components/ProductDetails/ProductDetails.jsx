@@ -15,14 +15,21 @@ const ProductDetails = () => {
     bidModalRef.current.showModal();
   };
 
-  useEffect(()=>{
-    fetch(`http://localhost:3100/products/bids/${id}`)
-    .then(res=>res.json())
-    .then(data=>{
-        console.log('bids for this product',data)
-        setBids(data)
-    })
-  },[id])
+useEffect(() => {
+  if (!user?.accessToken) return; // ✅ Prevent errors
+
+  fetch(`http://localhost:3100/products/bids/${id}`, {
+    headers: {
+      authorization: `Bearer ${user.accessToken}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("bids for this product", data);
+      setBids(data);
+    });
+}, [id, user]);
+
 
   const handleBidSubmit = (e) => {
     e.preventDefault();

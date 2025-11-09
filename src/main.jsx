@@ -11,6 +11,7 @@ import Register from './Components/Register/Register';
 import MyProducts from './Components/MyProducts/MyProducts';
 import MyBids from './Components/MyBids/MyBids';
 import ProductDetails from './Components/ProductDetails/ProductDetails';
+import CreateProduct from './Components/CreateProduct/CreateProduct';
 
 const router = createBrowserRouter([
   {
@@ -38,9 +39,13 @@ const router = createBrowserRouter([
         Component: MyBids
       },
       {
-        path: "productDetails/:id",
+        path: "/productDetails/:id",
         loader: ({params}) => fetch(`http://localhost:3100/latest-products/${params.id}`),
         Component: ProductDetails
+      },
+      {
+        path: "/createProducts",
+        Component: CreateProduct
       }
     ]
   },
@@ -49,7 +54,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
      <AuthProvider>
-      <RouterProvider router={router} />,
+      <RouterProvider router={router} />
      </AuthProvider>
   </StrictMode>,
 )
